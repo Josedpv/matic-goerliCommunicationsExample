@@ -1,7 +1,6 @@
 // Sources flattened with hardhat v2.4.3 https://hardhat.org
 
 // File @openzeppelin/contracts/utils/introspection/IERC165.sol@v4.2.0
-
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
@@ -1736,12 +1735,12 @@ abstract contract ERC721Tradeable is ContextMixin, ERC721Enumerable, NativeMetaT
     /**
      * @dev Mints a token to an address with a tokenURI.
      * @param _to address of the future owner of the token
-     */
+     *//*
     function mintTo(address _to) public onlyOwner {
         uint256 newTokenId = _getNextTokenId();
         _mint(_to, newTokenId);
         _incrementTokenId();
-    }
+    }*/
 
     /**
      * @dev calculates the next token ID based on value of _currentTokenId
@@ -1783,6 +1782,371 @@ abstract contract ERC721Tradeable is ContextMixin, ERC721Enumerable, NativeMetaT
         return super.isApprovedForAll(owner, operator);
     }
 
+}
+
+
+// File @openzeppelin/contracts/access/AccessControl.sol@v4.2.0
+
+
+pragma solidity ^0.8.0;
+
+
+
+/**
+ * @dev External interface of AccessControl declared to support ERC165 detection.
+ */
+interface IAccessControl {
+    function hasRole(bytes32 role, address account) external view returns (bool);
+
+    function getRoleAdmin(bytes32 role) external view returns (bytes32);
+
+    function grantRole(bytes32 role, address account) external;
+
+    function revokeRole(bytes32 role, address account) external;
+
+    function renounceRole(bytes32 role, address account) external;
+}
+
+/**
+ * @dev Contract module that allows children to implement role-based access
+ * control mechanisms. This is a lightweight version that doesn't allow enumerating role
+ * members except through off-chain means by accessing the contract event logs. Some
+ * applications may benefit from on-chain enumerability, for those cases see
+ * {AccessControlEnumerable}.
+ *
+ * Roles are referred to by their `bytes32` identifier. These should be exposed
+ * in the external API and be unique. The best way to achieve this is by
+ * using `public constant` hash digests:
+ *
+ * ```
+ * bytes32 public constant MY_ROLE = keccak256("MY_ROLE");
+ * ```
+ *
+ * Roles can be used to represent a set of permissions. To restrict access to a
+ * function call, use {hasRole}:
+ *
+ * ```
+ * function foo() public {
+ *     require(hasRole(MY_ROLE, msg.sender));
+ *     ...
+ * }
+ * ```
+ *
+ * Roles can be granted and revoked dynamically via the {grantRole} and
+ * {revokeRole} functions. Each role has an associated admin role, and only
+ * accounts that have a role's admin role can call {grantRole} and {revokeRole}.
+ *
+ * By default, the admin role for all roles is `DEFAULT_ADMIN_ROLE`, which means
+ * that only accounts with this role will be able to grant or revoke other
+ * roles. More complex role relationships can be created by using
+ * {_setRoleAdmin}.
+ *
+ * WARNING: The `DEFAULT_ADMIN_ROLE` is also its own admin: it has permission to
+ * grant and revoke this role. Extra precautions should be taken to secure
+ * accounts that have been granted it.
+ */
+abstract contract AccessControl is Context, IAccessControl, ERC165 {
+    struct RoleData {
+        mapping(address => bool) members;
+        bytes32 adminRole;
+    }
+
+    mapping(bytes32 => RoleData) private _roles;
+
+    bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
+
+    /**
+     * @dev Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole`
+     *
+     * `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite
+     * {RoleAdminChanged} not being emitted signaling this.
+     *
+     * _Available since v3.1._
+     */
+    event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole);
+
+    /**
+     * @dev Emitted when `account` is granted `role`.
+     *
+     * `sender` is the account that originated the contract call, an admin role
+     * bearer except when using {_setupRole}.
+     */
+    event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender);
+
+    /**
+     * @dev Emitted when `account` is revoked `role`.
+     *
+     * `sender` is the account that originated the contract call:
+     *   - if using `revokeRole`, it is the admin role bearer
+     *   - if using `renounceRole`, it is the role bearer (i.e. `account`)
+     */
+    event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);
+
+    /**
+     * @dev Modifier that checks that an account has a specific role. Reverts
+     * with a standardized message including the required role.
+     *
+     * The format of the revert reason is given by the following regular expression:
+     *
+     *  /^AccessControl: account (0x[0-9a-f]{20}) is missing role (0x[0-9a-f]{32})$/
+     *
+     * _Available since v4.1._
+     */
+    modifier onlyRole(bytes32 role) {
+        _checkRole(role, _msgSender());
+        _;
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        return interfaceId == type(IAccessControl).interfaceId || super.supportsInterface(interfaceId);
+    }
+
+    /**
+     * @dev Returns `true` if `account` has been granted `role`.
+     */
+    function hasRole(bytes32 role, address account) public view override returns (bool) {
+        return _roles[role].members[account];
+    }
+
+    /**
+     * @dev Revert with a standard message if `account` is missing `role`.
+     *
+     * The format of the revert reason is given by the following regular expression:
+     *
+     *  /^AccessControl: account (0x[0-9a-f]{20}) is missing role (0x[0-9a-f]{32})$/
+     */
+    function _checkRole(bytes32 role, address account) internal view {
+        if (!hasRole(role, account)) {
+            revert(
+                string(
+                    abi.encodePacked(
+                        "AccessControl: account ",
+                        Strings.toHexString(uint160(account), 20),
+                        " is missing role ",
+                        Strings.toHexString(uint256(role), 32)
+                    )
+                )
+            );
+        }
+    }
+
+    /**
+     * @dev Returns the admin role that controls `role`. See {grantRole} and
+     * {revokeRole}.
+     *
+     * To change a role's admin, use {_setRoleAdmin}.
+     */
+    function getRoleAdmin(bytes32 role) public view override returns (bytes32) {
+        return _roles[role].adminRole;
+    }
+
+    /**
+     * @dev Grants `role` to `account`.
+     *
+     * If `account` had not been already granted `role`, emits a {RoleGranted}
+     * event.
+     *
+     * Requirements:
+     *
+     * - the caller must have ``role``'s admin role.
+     */
+    function grantRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
+        _grantRole(role, account);
+    }
+
+    /**
+     * @dev Revokes `role` from `account`.
+     *
+     * If `account` had been granted `role`, emits a {RoleRevoked} event.
+     *
+     * Requirements:
+     *
+     * - the caller must have ``role``'s admin role.
+     */
+    function revokeRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
+        _revokeRole(role, account);
+    }
+
+    /**
+     * @dev Revokes `role` from the calling account.
+     *
+     * Roles are often managed via {grantRole} and {revokeRole}: this function's
+     * purpose is to provide a mechanism for accounts to lose their privileges
+     * if they are compromised (such as when a trusted device is misplaced).
+     *
+     * If the calling account had been granted `role`, emits a {RoleRevoked}
+     * event.
+     *
+     * Requirements:
+     *
+     * - the caller must be `account`.
+     */
+    function renounceRole(bytes32 role, address account) public virtual override {
+        require(account == _msgSender(), "AccessControl: can only renounce roles for self");
+
+        _revokeRole(role, account);
+    }
+
+    /**
+     * @dev Grants `role` to `account`.
+     *
+     * If `account` had not been already granted `role`, emits a {RoleGranted}
+     * event. Note that unlike {grantRole}, this function doesn't perform any
+     * checks on the calling account.
+     *
+     * [WARNING]
+     * ====
+     * This function should only be called from the constructor when setting
+     * up the initial roles for the system.
+     *
+     * Using this function in any other way is effectively circumventing the admin
+     * system imposed by {AccessControl}.
+     * ====
+     */
+    function _setupRole(bytes32 role, address account) internal virtual {
+        _grantRole(role, account);
+    }
+
+    /**
+     * @dev Sets `adminRole` as ``role``'s admin role.
+     *
+     * Emits a {RoleAdminChanged} event.
+     */
+    function _setRoleAdmin(bytes32 role, bytes32 adminRole) internal virtual {
+        emit RoleAdminChanged(role, getRoleAdmin(role), adminRole);
+        _roles[role].adminRole = adminRole;
+    }
+
+    function _grantRole(bytes32 role, address account) private {
+        if (!hasRole(role, account)) {
+            _roles[role].members[account] = true;
+            emit RoleGranted(role, account, _msgSender());
+        }
+    }
+
+    function _revokeRole(bytes32 role, address account) private {
+        if (hasRole(role, account)) {
+            _roles[role].members[account] = false;
+            emit RoleRevoked(role, account, _msgSender());
+        }
+    }
+}
+
+
+// File contracts/common/AccessControlMixin.sol
+
+
+pragma solidity ^0.8.0;
+
+contract AccessControlMixin is AccessControl {
+    string private _revertMsg;
+    function _setupContractId(string memory contractId) internal {
+        _revertMsg = string(abi.encodePacked(contractId, ": INSUFFICIENT_PERMISSIONS"));
+    }
+
+    modifier only(bytes32 role) {
+        require(
+            hasRole(role, _msgSender()),
+            _revertMsg
+        );
+        _;
+    }
+}
+
+
+// File contracts/ParentCreature4.sol
+
+
+pragma solidity ^0.8.0;
+
+
+
+
+/**
+ * @title Creature
+ * Creature - a contract for my non-fungible creatures.
+ */
+contract FlatParentCreature4 is ERC721Tradeable, AccessControlMixin {
+
+    bytes32 public constant PREDICATE_ROLE = keccak256("PREDICATE_ROLE");
+
+    constructor(address _proxyRegistryAddress)
+        ERC721Tradeable("DCreature4", "DOSC4", _proxyRegistryAddress)
+    {
+        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
+        _setupRole(PREDICATE_ROLE, 0x56E14C4C1748a818a5564D33cF774c59EB3eDF59);
+    }
+   
+    /**
+    * Opensea URI's
+    */
+    function baseTokenURI() override public pure returns (string memory) {
+        return "https://creatures-api.opensea.io/api/creature/";
+    }
+
+    function contractURI() public pure returns (string memory) {
+        return "https://creatures-api.opensea.io/contract/opensea-creatures";
+    }
+    
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721Enumerable, AccessControl) returns (bool) {
+        return interfaceId == type(ERC721Tradeable).interfaceId || super.supportsInterface(interfaceId);
+    }
+    
+    /**
+     * @dev See {IMintableERC721-mint}.
+     */
+    function mint(address user, uint256 tokenId) external  only(PREDICATE_ROLE) {
+        _mint(user, tokenId);
+    }
+    // Optional mapping for token URIs
+    mapping(uint256 => string) private _tokenURIs;
+        /**
+     * @dev Sets `_tokenURI` as the tokenURI of `tokenId`.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+     
+    function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
+        require(_exists(tokenId), "ERC721Metadata: URI set of nonexistent token");
+        _tokenURIs[tokenId] = _tokenURI;
+    }
+    /**
+     * If you're attempting to bring metadata associated with token
+     * from L2 to L1, you must implement this method, to be invoked
+     * when minting token back on L1, during exit
+     */
+    function setTokenMetadata(uint256 tokenId, bytes memory data) internal virtual {
+        // This function should decode metadata obtained from L2
+        // and attempt to set it for this `tokenId`
+        //
+        // Following is just a default implementation, feel
+        // free to define your own encoding/ decoding scheme
+        // for L2 -> L1 token metadata transfer
+        string memory uri = abi.decode(data, (string));
+
+        _setTokenURI(tokenId, uri);
+    }
+    
+    /**
+     * @dev See {IMintableERC721-mint}.
+     * 
+     * If you're attempting to bring metadata associated with token
+     * from L2 to L1, you must implement this method
+     */
+    function mint(address user, uint256 tokenId, bytes calldata metaData) external  only(PREDICATE_ROLE) {
+        _mint(user, tokenId);
+
+        setTokenMetadata(tokenId, metaData);
+    }
+
     /**
      * This is used instead of msg.sender as transactions won't be sent by the original token owner, but by OpenSea.
      */
@@ -1794,30 +2158,7 @@ abstract contract ERC721Tradeable is ContextMixin, ERC721Enumerable, NativeMetaT
     {
         return ContextMixin.msgSender();
     }
-}
 
-
-// File contracts/Creature3.sol
-
-
-pragma solidity ^0.8.0;
-
-/**
- * @title Creature
- * Creature - a contract for my non-fungible creatures.
- */
-contract FlatCreature3 is ERC721Tradeable {
-    constructor(address _proxyRegistryAddress)
-        ERC721Tradeable("Creature3", "OSC3", _proxyRegistryAddress)
-    {}
-
-    function baseTokenURI() override public pure returns (string memory) {
-        return "https://creatures-api.opensea.io/api/creature/";
-    }
-
-    function contractURI() public pure returns (string memory) {
-        return "https://creatures-api.opensea.io/contract/opensea-creatures";
-    }
 
    /**
    * Override isApprovedForAll to whitelist proxy accounts
@@ -1833,4 +2174,6 @@ contract FlatCreature3 is ERC721Tradeable {
         
         return ERC721.isApprovedForAll(_owner, _operator);
     }
+
+
 }

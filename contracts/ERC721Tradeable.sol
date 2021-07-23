@@ -39,7 +39,7 @@ abstract contract ERC721Tradeable is ContextMixin, ERC721Enumerable, NativeMetaT
      * @dev Mints a token to an address with a tokenURI.
      * @param _to address of the future owner of the token
      */
-    function mint(address _to) public onlyOwner {
+    function mintTo(address _to) public onlyOwner {
         uint256 newTokenId = _getNextTokenId();
         _mint(_to, newTokenId);
         _incrementTokenId();
@@ -85,15 +85,4 @@ abstract contract ERC721Tradeable is ContextMixin, ERC721Enumerable, NativeMetaT
         return super.isApprovedForAll(owner, operator);
     }
 
-    /**
-     * This is used instead of msg.sender as transactions won't be sent by the original token owner, but by OpenSea.
-     */
-    function _msgSender()
-        internal
-        override
-        view
-        returns (address sender)
-    {
-        return ContextMixin.msgSender();
-    }
 }
