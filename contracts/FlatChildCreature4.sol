@@ -30,6 +30,8 @@ interface IERC165 {
 
 // File @openzeppelin/contracts/token/ERC721/IERC721.sol@v4.2.0
 
+
+
 pragma solidity ^0.8.0;
 
 /**
@@ -172,6 +174,8 @@ interface IERC721 is IERC165 {
 
 // File @openzeppelin/contracts/token/ERC721/IERC721Receiver.sol@v4.2.0
 
+
+
 pragma solidity ^0.8.0;
 
 /**
@@ -200,6 +204,8 @@ interface IERC721Receiver {
 
 // File @openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol@v4.2.0
 
+
+
 pragma solidity ^0.8.0;
 
 /**
@@ -225,6 +231,8 @@ interface IERC721Metadata is IERC721 {
 
 
 // File @openzeppelin/contracts/utils/Address.sol@v4.2.0
+
+
 
 pragma solidity ^0.8.0;
 
@@ -438,6 +446,8 @@ library Address {
 
 // File @openzeppelin/contracts/utils/Context.sol@v4.2.0
 
+
+
 pragma solidity ^0.8.0;
 
 /*
@@ -462,6 +472,8 @@ abstract contract Context {
 
 
 // File @openzeppelin/contracts/utils/Strings.sol@v4.2.0
+
+
 
 pragma solidity ^0.8.0;
 
@@ -531,6 +543,8 @@ library Strings {
 
 // File @openzeppelin/contracts/utils/introspection/ERC165.sol@v4.2.0
 
+
+
 pragma solidity ^0.8.0;
 
 /**
@@ -558,6 +572,8 @@ abstract contract ERC165 is IERC165 {
 
 
 // File @openzeppelin/contracts/token/ERC721/ERC721.sol@v4.2.0
+
+
 
 pragma solidity ^0.8.0;
 
@@ -970,6 +986,8 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
 
 // File @openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol@v4.2.0
 
+
+
 pragma solidity ^0.8.0;
 
 /**
@@ -997,6 +1015,8 @@ interface IERC721Enumerable is IERC721 {
 
 
 // File @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol@v4.2.0
+
+
 
 pragma solidity ^0.8.0;
 
@@ -1160,6 +1180,8 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 
 // File @openzeppelin/contracts/access/Ownable.sol@v4.2.0
 
+
+
 pragma solidity ^0.8.0;
 
 /**
@@ -1230,6 +1252,8 @@ abstract contract Ownable is Context {
 
 
 // File @openzeppelin/contracts/utils/math/SafeMath.sol@v4.2.0
+
+
 
 pragma solidity ^0.8.0;
 
@@ -1457,7 +1481,9 @@ library SafeMath {
 }
 
 
-// File contracts/common/meta-transactions/ContentMixin.sol
+// File contracts/ERC721/common/meta-transactions/ContentMixin.sol
+
+
 
 pragma solidity ^0.8.0;
 
@@ -1485,7 +1511,9 @@ abstract contract ContextMixin {
 }
 
 
-// File contracts/common/meta-transactions/Initializable.sol
+// File contracts/ERC721/common/meta-transactions/Initializable.sol
+
+
 
 pragma solidity ^0.8.0;
 
@@ -1500,7 +1528,9 @@ contract Initializable {
 }
 
 
-// File contracts/common/meta-transactions/EIP712Base.sol
+// File contracts/ERC721/common/meta-transactions/EIP712Base.sol
+
+
 
 pragma solidity ^0.8.0;
 
@@ -1577,7 +1607,9 @@ contract EIP712Base is Initializable {
 }
 
 
-// File contracts/common/meta-transactions/NativeMetaTransaction.sol
+// File contracts/ERC721/common/meta-transactions/NativeMetaTransaction.sol
+
+
 
 pragma solidity ^0.8.0;
 
@@ -1683,373 +1715,123 @@ contract NativeMetaTransaction is EIP712Base {
 }
 
 
-// File: @openzeppelin/contracts/utils/EnumerableSet.sol
+// File contracts/ERC721/ERC721Tradeable.sol
 
 
 
 pragma solidity ^0.8.0;
 
-/**
- * @dev Library for managing
- * https://en.wikipedia.org/wiki/Set_(abstract_data_type)[sets] of primitive
- * types.
- *
- * Sets have the following properties:
- *
- * - Elements are added, removed, and checked for existence in constant time
- * (O(1)).
- * - Elements are enumerated in O(n). No guarantees are made on the ordering.
- *
- * ```
- * contract Example {
- *     // Add the library methods
- *     using EnumerableSet for EnumerableSet.AddressSet;
- *
- *     // Declare a set state variable
- *     EnumerableSet.AddressSet private mySet;
- * }
- * ```
- *
- * As of v3.3.0, sets of type `bytes32` (`Bytes32Set`), `address` (`AddressSet`)
- * and `uint256` (`UintSet`) are supported.
- */
-library EnumerableSet {
-    // To implement this library for multiple types with as little code
-    // repetition as possible, we write it in terms of a generic Set type with
-    // bytes32 values.
-    // The Set implementation uses private functions, and user-facing
-    // implementations (such as AddressSet) are just wrappers around the
-    // underlying Set.
-    // This means that we can only create new EnumerableSets for types that fit
-    // in bytes32.
 
-    struct Set {
-        // Storage of set values
-        bytes32[] _values;
-        // Position of the value in the `values` array, plus 1 because index 0
-        // means a value is not in the set.
-        mapping(bytes32 => uint256) _indexes;
-    }
 
-    /**
-     * @dev Add a value to a set. O(1).
-     *
-     * Returns true if the value was added to the set, that is if it was not
-     * already present.
-     */
-    function _add(Set storage set, bytes32 value) private returns (bool) {
-        if (!_contains(set, value)) {
-            set._values.push(value);
-            // The value is stored at length-1, but we add 1 to all indexes
-            // and use 0 as a sentinel value
-            set._indexes[value] = set._values.length;
-            return true;
-        } else {
-            return false;
-        }
-    }
 
-    /**
-     * @dev Removes a value from a set. O(1).
-     *
-     * Returns true if the value was removed from the set, that is if it was
-     * present.
-     */
-    function _remove(Set storage set, bytes32 value) private returns (bool) {
-        // We read and store the value's index to prevent multiple reads from the same storage slot
-        uint256 valueIndex = set._indexes[value];
 
-        if (valueIndex != 0) {
-            // Equivalent to contains(set, value)
-            // To delete an element from the _values array in O(1), we swap the element to delete with the last one in
-            // the array, and then remove the last element (sometimes called as 'swap and pop').
-            // This modifies the order of the array, as noted in {at}.
+contract OwnableDelegateProxy {}
 
-            uint256 toDeleteIndex = valueIndex - 1;
-            uint256 lastIndex = set._values.length - 1;
-
-            if (lastIndex != toDeleteIndex) {
-                bytes32 lastvalue = set._values[lastIndex];
-
-                // Move the last value to the index where the value to delete is
-                set._values[toDeleteIndex] = lastvalue;
-                // Update the index for the moved value
-                set._indexes[lastvalue] = valueIndex; // Replace lastvalue's index to valueIndex
-            }
-
-            // Delete the slot where the moved value was stored
-            set._values.pop();
-
-            // Delete the index for the deleted slot
-            delete set._indexes[value];
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * @dev Returns true if the value is in the set. O(1).
-     */
-    function _contains(Set storage set, bytes32 value) private view returns (bool) {
-        return set._indexes[value] != 0;
-    }
-
-    /**
-     * @dev Returns the number of values on the set. O(1).
-     */
-    function _length(Set storage set) private view returns (uint256) {
-        return set._values.length;
-    }
-
-    /**
-     * @dev Returns the value stored at position `index` in the set. O(1).
-     *
-     * Note that there are no guarantees on the ordering of values inside the
-     * array, and it may change when more values are added or removed.
-     *
-     * Requirements:
-     *
-     * - `index` must be strictly less than {length}.
-     */
-    function _at(Set storage set, uint256 index) private view returns (bytes32) {
-        return set._values[index];
-    }
-
-    /**
-     * @dev Return the entire set in an array
-     *
-     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed
-     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that
-     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
-     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.
-     */
-    function _values(Set storage set) private view returns (bytes32[] memory) {
-        return set._values;
-    }
-
-    // Bytes32Set
-
-    struct Bytes32Set {
-        Set _inner;
-    }
-
-    /**
-     * @dev Add a value to a set. O(1).
-     *
-     * Returns true if the value was added to the set, that is if it was not
-     * already present.
-     */
-    function add(Bytes32Set storage set, bytes32 value) internal returns (bool) {
-        return _add(set._inner, value);
-    }
-
-    /**
-     * @dev Removes a value from a set. O(1).
-     *
-     * Returns true if the value was removed from the set, that is if it was
-     * present.
-     */
-    function remove(Bytes32Set storage set, bytes32 value) internal returns (bool) {
-        return _remove(set._inner, value);
-    }
-
-    /**
-     * @dev Returns true if the value is in the set. O(1).
-     */
-    function contains(Bytes32Set storage set, bytes32 value) internal view returns (bool) {
-        return _contains(set._inner, value);
-    }
-
-    /**
-     * @dev Returns the number of values in the set. O(1).
-     */
-    function length(Bytes32Set storage set) internal view returns (uint256) {
-        return _length(set._inner);
-    }
-
-    /**
-     * @dev Returns the value stored at position `index` in the set. O(1).
-     *
-     * Note that there are no guarantees on the ordering of values inside the
-     * array, and it may change when more values are added or removed.
-     *
-     * Requirements:
-     *
-     * - `index` must be strictly less than {length}.
-     */
-    function at(Bytes32Set storage set, uint256 index) internal view returns (bytes32) {
-        return _at(set._inner, index);
-    }
-
-    /**
-     * @dev Return the entire set in an array
-     *
-     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed
-     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that
-     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
-     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.
-     */
-    function values(Bytes32Set storage set) internal view returns (bytes32[] memory) {
-        return _values(set._inner);
-    }
-
-    // AddressSet
-
-    struct AddressSet {
-        Set _inner;
-    }
-
-    /**
-     * @dev Add a value to a set. O(1).
-     *
-     * Returns true if the value was added to the set, that is if it was not
-     * already present.
-     */
-    function add(AddressSet storage set, address value) internal returns (bool) {
-        return _add(set._inner, bytes32(uint256(uint160(value))));
-    }
-
-    /**
-     * @dev Removes a value from a set. O(1).
-     *
-     * Returns true if the value was removed from the set, that is if it was
-     * present.
-     */
-    function remove(AddressSet storage set, address value) internal returns (bool) {
-        return _remove(set._inner, bytes32(uint256(uint160(value))));
-    }
-
-    /**
-     * @dev Returns true if the value is in the set. O(1).
-     */
-    function contains(AddressSet storage set, address value) internal view returns (bool) {
-        return _contains(set._inner, bytes32(uint256(uint160(value))));
-    }
-
-    /**
-     * @dev Returns the number of values in the set. O(1).
-     */
-    function length(AddressSet storage set) internal view returns (uint256) {
-        return _length(set._inner);
-    }
-
-    /**
-     * @dev Returns the value stored at position `index` in the set. O(1).
-     *
-     * Note that there are no guarantees on the ordering of values inside the
-     * array, and it may change when more values are added or removed.
-     *
-     * Requirements:
-     *
-     * - `index` must be strictly less than {length}.
-     */
-    function at(AddressSet storage set, uint256 index) internal view returns (address) {
-        return address(uint160(uint256(_at(set._inner, index))));
-    }
-
-    /**
-     * @dev Return the entire set in an array
-     *
-     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed
-     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that
-     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
-     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.
-     */
-    function values(AddressSet storage set) internal view returns (address[] memory) {
-        bytes32[] memory store = _values(set._inner);
-        address[] memory result;
-
-        assembly {
-            result := store
-        }
-
-        return result;
-    }
-
-    // UintSet
-
-    struct UintSet {
-        Set _inner;
-    }
-
-    /**
-     * @dev Add a value to a set. O(1).
-     *
-     * Returns true if the value was added to the set, that is if it was not
-     * already present.
-     */
-    function add(UintSet storage set, uint256 value) internal returns (bool) {
-        return _add(set._inner, bytes32(value));
-    }
-
-    /**
-     * @dev Removes a value from a set. O(1).
-     *
-     * Returns true if the value was removed from the set, that is if it was
-     * present.
-     */
-    function remove(UintSet storage set, uint256 value) internal returns (bool) {
-        return _remove(set._inner, bytes32(value));
-    }
-
-    /**
-     * @dev Returns true if the value is in the set. O(1).
-     */
-    function contains(UintSet storage set, uint256 value) internal view returns (bool) {
-        return _contains(set._inner, bytes32(value));
-    }
-
-    /**
-     * @dev Returns the number of values on the set. O(1).
-     */
-    function length(UintSet storage set) internal view returns (uint256) {
-        return _length(set._inner);
-    }
-
-    /**
-     * @dev Returns the value stored at position `index` in the set. O(1).
-     *
-     * Note that there are no guarantees on the ordering of values inside the
-     * array, and it may change when more values are added or removed.
-     *
-     * Requirements:
-     *
-     * - `index` must be strictly less than {length}.
-     */
-    function at(UintSet storage set, uint256 index) internal view returns (uint256) {
-        return uint256(_at(set._inner, index));
-    }
-
-    /**
-     * @dev Return the entire set in an array
-     *
-     * WARNING: This operation will copy the entire storage to memory, which can be quite expensive. This is designed
-     * to mostly be used by view accessors that are queried without any gas fees. Developers should keep in mind that
-     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
-     * uncallable if the set grows to a point where copying to memory consumes too much gas to fit in a block.
-     */
-    function values(UintSet storage set) internal view returns (uint256[] memory) {
-        bytes32[] memory store = _values(set._inner);
-        uint256[] memory result;
-
-        assembly {
-            result := store
-        }
-
-        return result;
-    }
+contract ProxyRegistry {
+    mapping(address => OwnableDelegateProxy) public proxies;
 }
 
+/**
+ * @title ERC721Tradable
+ * ERC721Tradable - ERC721 contract that whitelists a trading address, and has minting functionality.
+ */
+abstract contract ERC721Tradeable is ContextMixin, ERC721Enumerable, NativeMetaTransaction, Ownable {
+    using SafeMath for uint256;
+
+    address proxyRegistryAddress;
+    uint256 private _currentTokenId = 0;
+
+    constructor(
+        string memory _name,
+        string memory _symbol,
+        address _proxyRegistryAddress
+    ) ERC721(_name, _symbol) {
+        proxyRegistryAddress = _proxyRegistryAddress;
+        _initializeEIP712(_name);
+    }
+
+    /**
+     * @dev Mints a token to an address with a tokenURI.
+     * @param _to address of the future owner of the token
+     */
+    // function mintTo(address _to) public onlyOwner {
+    //     uint256 newTokenId = _getNextTokenId();
+    //     _mint(_to, newTokenId);
+    //     _incrementTokenId();
+    // }
+
+    /**
+     * @dev calculates the next token ID based on value of _currentTokenId
+     * @return uint256 for the next token ID
+     */
+    // function _getNextTokenId() virtual private view returns (uint256) {
+    //     return _currentTokenId.add(1);
+    // }
+
+    // /**
+    //  * @dev increments the value of _currentTokenId
+    //  */
+    // function _incrementTokenId() virtual private {
+    //     _currentTokenId++;
+    // }
+
+    function baseTokenURI() virtual public pure returns (string memory);
+
+    function tokenURI(uint256 _tokenId) override public pure returns (string memory) {
+        return string(abi.encodePacked(baseTokenURI(), Strings.toString(_tokenId)));
+    }
+
+    /**
+     * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
+     */
+    function isApprovedForAll(address owner, address operator)
+        override
+        public
+        view
+        virtual
+        returns (bool)
+    {
+        // Whitelist OpenSea proxy contract for easy trading.
+        ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
+        if (address(proxyRegistry.proxies(owner)) == operator) {
+            return true;
+        }
+
+        return super.isApprovedForAll(owner, operator);
+    }
+
+}
+
+
+// File @openzeppelin/contracts/access/AccessControl.sol@v4.2.0
+
+
+
 pragma solidity ^0.8.0;
 
 
 
+/**
+ * @dev External interface of AccessControl declared to support ERC165 detection.
+ */
+interface IAccessControl {
+    function hasRole(bytes32 role, address account) external view returns (bool);
+
+    function getRoleAdmin(bytes32 role) external view returns (bytes32);
+
+    function grantRole(bytes32 role, address account) external;
+
+    function revokeRole(bytes32 role, address account) external;
+
+    function renounceRole(bytes32 role, address account) external;
+}
 
 /**
  * @dev Contract module that allows children to implement role-based access
- * control mechanisms.
+ * control mechanisms. This is a lightweight version that doesn't allow enumerating role
+ * members except through off-chain means by accessing the contract event logs. Some
+ * applications may benefit from on-chain enumerability, for those cases see
+ * {AccessControlEnumerable}.
  *
  * Roles are referred to by their `bytes32` identifier. These should be exposed
  * in the external API and be unique. The best way to achieve this is by
@@ -2082,16 +1864,13 @@ pragma solidity ^0.8.0;
  * grant and revoke this role. Extra precautions should be taken to secure
  * accounts that have been granted it.
  */
-abstract contract AccessControl is Context {
-    using EnumerableSet for EnumerableSet.AddressSet;
-    using Address for address;
-
+abstract contract AccessControl is Context, IAccessControl, ERC165 {
     struct RoleData {
-        EnumerableSet.AddressSet members;
+        mapping(address => bool) members;
         bytes32 adminRole;
     }
 
-    mapping (bytes32 => RoleData) private _roles;
+    mapping(bytes32 => RoleData) private _roles;
 
     bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
 
@@ -2123,34 +1902,54 @@ abstract contract AccessControl is Context {
     event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);
 
     /**
+     * @dev Modifier that checks that an account has a specific role. Reverts
+     * with a standardized message including the required role.
+     *
+     * The format of the revert reason is given by the following regular expression:
+     *
+     *  /^AccessControl: account (0x[0-9a-f]{20}) is missing role (0x[0-9a-f]{32})$/
+     *
+     * _Available since v4.1._
+     */
+    modifier onlyRole(bytes32 role) {
+        _checkRole(role, _msgSender());
+        _;
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        return interfaceId == type(IAccessControl).interfaceId || super.supportsInterface(interfaceId);
+    }
+
+    /**
      * @dev Returns `true` if `account` has been granted `role`.
      */
-    function hasRole(bytes32 role, address account) public view returns (bool) {
-        return _roles[role].members.contains(account);
+    function hasRole(bytes32 role, address account) public view override returns (bool) {
+        return _roles[role].members[account];
     }
 
     /**
-     * @dev Returns the number of accounts that have `role`. Can be used
-     * together with {getRoleMember} to enumerate all bearers of a role.
-     */
-    function getRoleMemberCount(bytes32 role) public view returns (uint256) {
-        return _roles[role].members.length();
-    }
-
-    /**
-     * @dev Returns one of the accounts that have `role`. `index` must be a
-     * value between 0 and {getRoleMemberCount}, non-inclusive.
+     * @dev Revert with a standard message if `account` is missing `role`.
      *
-     * Role bearers are not sorted in any particular way, and their ordering may
-     * change at any point.
+     * The format of the revert reason is given by the following regular expression:
      *
-     * WARNING: When using {getRoleMember} and {getRoleMemberCount}, make sure
-     * you perform all queries on the same block. See the following
-     * https://forum.openzeppelin.com/t/iterating-over-elements-on-enumerableset-in-openzeppelin-contracts/2296[forum post]
-     * for more information.
+     *  /^AccessControl: account (0x[0-9a-f]{20}) is missing role (0x[0-9a-f]{32})$/
      */
-    function getRoleMember(bytes32 role, uint256 index) public view returns (address) {
-        return _roles[role].members.at(index);
+    function _checkRole(bytes32 role, address account) internal view {
+        if (!hasRole(role, account)) {
+            revert(
+                string(
+                    abi.encodePacked(
+                        "AccessControl: account ",
+                        Strings.toHexString(uint160(account), 20),
+                        " is missing role ",
+                        Strings.toHexString(uint256(role), 32)
+                    )
+                )
+            );
+        }
     }
 
     /**
@@ -2159,7 +1958,7 @@ abstract contract AccessControl is Context {
      *
      * To change a role's admin, use {_setRoleAdmin}.
      */
-    function getRoleAdmin(bytes32 role) public view returns (bytes32) {
+    function getRoleAdmin(bytes32 role) public view override returns (bytes32) {
         return _roles[role].adminRole;
     }
 
@@ -2173,9 +1972,7 @@ abstract contract AccessControl is Context {
      *
      * - the caller must have ``role``'s admin role.
      */
-    function grantRole(bytes32 role, address account) public virtual {
-        require(hasRole(_roles[role].adminRole, _msgSender()), "AccessControl: sender must be an admin to grant");
-
+    function grantRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
         _grantRole(role, account);
     }
 
@@ -2188,9 +1985,7 @@ abstract contract AccessControl is Context {
      *
      * - the caller must have ``role``'s admin role.
      */
-    function revokeRole(bytes32 role, address account) public virtual {
-        require(hasRole(_roles[role].adminRole, _msgSender()), "AccessControl: sender must be an admin to revoke");
-
+    function revokeRole(bytes32 role, address account) public virtual override onlyRole(getRoleAdmin(role)) {
         _revokeRole(role, account);
     }
 
@@ -2208,7 +2003,7 @@ abstract contract AccessControl is Context {
      *
      * - the caller must be `account`.
      */
-    function renounceRole(bytes32 role, address account) public virtual {
+    function renounceRole(bytes32 role, address account) public virtual override {
         require(account == _msgSender(), "AccessControl: can only renounce roles for self");
 
         _revokeRole(role, account);
@@ -2240,27 +2035,31 @@ abstract contract AccessControl is Context {
      * Emits a {RoleAdminChanged} event.
      */
     function _setRoleAdmin(bytes32 role, bytes32 adminRole) internal virtual {
-        emit RoleAdminChanged(role, _roles[role].adminRole, adminRole);
+        emit RoleAdminChanged(role, getRoleAdmin(role), adminRole);
         _roles[role].adminRole = adminRole;
     }
 
     function _grantRole(bytes32 role, address account) private {
-        if (_roles[role].members.add(account)) {
+        if (!hasRole(role, account)) {
+            _roles[role].members[account] = true;
             emit RoleGranted(role, account, _msgSender());
         }
     }
 
     function _revokeRole(bytes32 role, address account) private {
-        if (_roles[role].members.remove(account)) {
+        if (hasRole(role, account)) {
+            _roles[role].members[account] = false;
             emit RoleRevoked(role, account, _msgSender());
         }
     }
 }
 
-// File: contracts/common/AccessControlMixin.sol
+
+// File contracts/ERC721/common/AccessControlMixin.sol
+
+
 
 pragma solidity ^0.8.0;
-
 
 contract AccessControlMixin is AccessControl {
     string private _revertMsg;
@@ -2277,62 +2076,63 @@ contract AccessControlMixin is AccessControl {
     }
 }
 
-// File: contracts/child/ChildToken/IChildToken.sol
+
+// File contracts/ERC721/ChildCreature4.sol
+
+
 
 pragma solidity ^0.8.0;
 
-interface IChildToken {
-    function deposit(address user, bytes calldata depositData) external;
-}
-
-// File: contracts/child/ChildToken/ChildMintableERC721.sol
-
-pragma solidity  ^0.8.0;
 
 
-
-
-
-
-
-contract FlatChildCreature4 is
-    ERC721,
-    IChildToken,
-    AccessControlMixin,
-    NativeMetaTransaction,
-    ContextMixin
-{
+/**
+ * @title Creature
+ * Creature - a contract for my non-fungible creatures.
+ */
+contract FlatChildCreature4 is ERC721Tradeable,AccessControlMixin {
+    using SafeMath for uint256;
     bytes32 public constant DEPOSITOR_ROLE = keccak256("DEPOSITOR_ROLE");
-    mapping (uint256 => bool) public withdrawnTokens;
+    uint256 private _currentTokenId = 0;
 
-    // limit batching of tokens due to gas limit restrictions
-    uint256 public constant BATCH_LIMIT = 20;
-
+    constructor(address _proxyRegistryAddress)
+        ERC721Tradeable("DCreature4", "DLC4", _proxyRegistryAddress)
+    {
+        /**
+        * Setting up permissions for admin role and ChildchainManager proxy 
+        */
+        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
+        _setupRole(DEPOSITOR_ROLE, 0xb5505a6d998549090530911180f38aC5130101c6);
+    }
+    /**
+     * Events for the burning 
+     */
     event WithdrawnBatch(address indexed user, uint256[] tokenIds);
     event TransferWithMetadata(address indexed from, address indexed to, uint256 indexed tokenId, bytes metaData);
 
-    constructor(
-        string memory name_,
-        string memory symbol_,
-        address childChainManager
-    ) ERC721(name_, symbol_) {
-        _setupContractId("FlatChildCreature4");
-        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
-        _setupRole(DEPOSITOR_ROLE, childChainManager);
-        _initializeEIP712(name_);
-    }
-
-    // This is to support Native meta transactions
-    // never use msg.sender directly, use _msgSender() instead
-    function _msgSender_()
-        internal
-        view
-        returns (address payable sender)
-    {
-        return ContextMixin.msgSender();
+        
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721Enumerable, AccessControl) returns (bool) {
+        return interfaceId == type(ERC721Tradeable).interfaceId || super.supportsInterface(interfaceId);
     }
 
     /**
+     * @notice called when user wants to withdraw token back to root chain
+     * @dev Should handle withraw by burning user's token.
+     * Should set `withdrawnTokens` mapping to `true` for the tokenId being withdrawn
+     * This transaction will be verified when exiting on root chain
+     * @param tokenId tokenId to withdraw
+     */
+
+    function withdraw(uint256 tokenId) external {
+        require(_msgSender() == ownerOf(tokenId), "ChildMintableERC721: INVALID_TOKEN_OWNER");
+        withdrawnTokens[tokenId] = true;
+        _burn(tokenId);
+    }
+    mapping (uint256 => bool) public withdrawnTokens;
+
+      /**
      * @notice called when token is deposited on root chain
      * @dev Should be callable only by ChildChainManager
      * Should handle deposit by minting the required tokenId(s) for user
@@ -2343,7 +2143,6 @@ contract FlatChildCreature4 is
      */
     function deposit(address user, bytes calldata depositData)
         external
-        override
         only(DEPOSITOR_ROLE)
     {
 
@@ -2366,17 +2165,17 @@ contract FlatChildCreature4 is
     }
 
     /**
-     * @notice called when user wants to withdraw token back to root chain
-     * @dev Should handle withraw by burning user's token.
-     * Should set `withdrawnTokens` mapping to `true` for the tokenId being withdrawn
-     * This transaction will be verified when exiting on root chain
-     * @param tokenId tokenId to withdraw
-     */
-    function withdraw(uint256 tokenId) external {
-        require(_msgSender() == ownerOf(tokenId), "FlatChildCreature4: INVALID_TOKEN_OWNER");
-        withdrawnTokens[tokenId] = true;
-        _burn(tokenId);
+    * Opensea URI's
+    */
+    function baseTokenURI() override public pure returns (string memory) {
+        return "https://creatures-api.opensea.io/api/creature/";
     }
+
+    function contractURI() public pure returns (string memory) {
+        return "https://creatures-api.opensea.io/contract/opensea-creatures";
+    }
+
+    
 
     /**
      * @notice called when user wants to withdraw multiple tokens back to root chain
@@ -2386,7 +2185,11 @@ contract FlatChildCreature4 is
     function withdrawBatch(uint256[] calldata tokenIds) external {
 
         uint256 length = tokenIds.length;
-        require(length <= BATCH_LIMIT, "FlatChildCreature4: EXCEEDS_BATCH_LIMIT");
+
+        /**
+         * Condition for how many tokens can you withdraw at once
+         */
+        require(length <= 10, "ChildMintableERC721: EXCEEDS_BATCH_LIMIT");
 
         // Iteratively burn ERC721 tokens, for performing
         // batch withdraw
@@ -2394,7 +2197,7 @@ contract FlatChildCreature4 is
 
             uint256 tokenId = tokenIds[i];
 
-            require(_msgSender() == ownerOf(tokenId), string(abi.encodePacked("FlatChildCreature4: INVALID_TOKEN_OWNER ", tokenId)));
+            require(_msgSender() == ownerOf(tokenId), string(abi.encodePacked("ChildMintableERC721: INVALID_TOKEN_OWNER ", tokenId)));
             withdrawnTokens[tokenId] = true;
             _burn(tokenId);
 
@@ -2407,54 +2210,45 @@ contract FlatChildCreature4 is
 
     }
 
-    /**
-     * @notice called when user wants to withdraw token back to root chain with token URI
-     * @dev Should handle withraw by burning user's token.
-     * Should set `withdrawnTokens` mapping to `true` for the tokenId being withdrawn
-     * This transaction will be verified when exiting on root chain
-     *
-     * @param tokenId tokenId to withdraw
-     */
-    function withdrawWithMetadata(uint256 tokenId) external {
-
-        require(_msgSender() == ownerOf(tokenId), "FlatChildCreature4: INVALID_TOKEN_OWNER");
-        withdrawnTokens[tokenId] = true;
-
-        // Encoding metadata associated with tokenId & emitting event
-        emit TransferWithMetadata(ownerOf(tokenId), address(0), tokenId, this.encodeTokenMetadata(tokenId));
-
-        _burn(tokenId);
-
+   /**
+   * Override isApprovedForAll to whitelist proxy accounts
+   */
+    function isApprovedForAll(
+        address _owner,
+        address _operator
+    ) public override virtual view returns (bool isOperator) {
+        // Use 0x58807baD0B376efc12F5AD86aAc70E78ed67deaE as the whitelisted address for ERC721's.
+        if (_operator == address(0x58807baD0B376efc12F5AD86aAc70E78ed67deaE)) {
+            return true;
+        }
+        
+        return ERC721.isApprovedForAll(_owner, _operator);
     }
 
     /**
-     * @notice This method is supposed to be called by client when withdrawing token with metadata
-     * and pass return value of this function as second paramter of `withdrawWithMetadata` method
-     *
-     * It can be overridden by clients to encode data in a different form, which needs to
-     * be decoded back by them correctly during exiting
-     *
-     * @param tokenId Token for which URI to be fetched
+     * @dev calculates the next token ID based on value of _currentTokenId
+     * @return uint256 for the next token ID
      */
-    function encodeTokenMetadata(uint256 tokenId) external view virtual returns (bytes memory) {
-
-        // You're always free to change this default implementation
-        // and pack more data in byte array which can be decoded back
-        // in L1
-        return abi.encode(tokenURI(tokenId));
-
+    function _getNextTokenId() private view  returns (uint256) {
+        return _currentTokenId.add(1);
     }
 
     /**
-     * @notice Example function to handle minting tokens on matic chain
-     * @dev Minting can be done as per requirement,
-     * This implementation allows only admin to mint tokens but it can be changed as per requirement
-     * Should verify if token is withdrawn by checking `withdrawnTokens` mapping
-     * @param user user for whom tokens are being minted
-     * @param tokenId tokenId to mint
+     * @dev increments the value of _currentTokenId
      */
-    function mint(address user, uint256 tokenId) public only(DEFAULT_ADMIN_ROLE) {
-        require(!withdrawnTokens[tokenId], "FlatChildCreature4: TOKEN_EXISTS_ON_ROOT_CHAIN");
-        _mint(user, tokenId);
+    function _incrementTokenId() private {
+        _currentTokenId++;
     }
+    
+    /**
+     * @dev Mints a token to an address with a tokenURI.
+     * @param _to address of the future owner of the token
+     */
+    function mintTo(address _to) public onlyOwner {
+        uint256 newTokenId = _getNextTokenId();
+        _mint(_to, newTokenId);
+        _incrementTokenId();
+    }
+
+
 }

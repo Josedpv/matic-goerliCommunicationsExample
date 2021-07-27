@@ -29,7 +29,6 @@ interface IERC165 {
 
 // File @openzeppelin/contracts/token/ERC721/IERC721.sol@v4.2.0
 
-
 pragma solidity ^0.8.0;
 
 /**
@@ -172,7 +171,6 @@ interface IERC721 is IERC165 {
 
 // File @openzeppelin/contracts/token/ERC721/IERC721Receiver.sol@v4.2.0
 
-
 pragma solidity ^0.8.0;
 
 /**
@@ -201,7 +199,6 @@ interface IERC721Receiver {
 
 // File @openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol@v4.2.0
 
-
 pragma solidity ^0.8.0;
 
 /**
@@ -227,7 +224,6 @@ interface IERC721Metadata is IERC721 {
 
 
 // File @openzeppelin/contracts/utils/Address.sol@v4.2.0
-
 
 pragma solidity ^0.8.0;
 
@@ -441,7 +437,6 @@ library Address {
 
 // File @openzeppelin/contracts/utils/Context.sol@v4.2.0
 
-
 pragma solidity ^0.8.0;
 
 /*
@@ -466,7 +461,6 @@ abstract contract Context {
 
 
 // File @openzeppelin/contracts/utils/Strings.sol@v4.2.0
-
 
 pragma solidity ^0.8.0;
 
@@ -536,7 +530,6 @@ library Strings {
 
 // File @openzeppelin/contracts/utils/introspection/ERC165.sol@v4.2.0
 
-
 pragma solidity ^0.8.0;
 
 /**
@@ -564,7 +557,6 @@ abstract contract ERC165 is IERC165 {
 
 
 // File @openzeppelin/contracts/token/ERC721/ERC721.sol@v4.2.0
-
 
 pragma solidity ^0.8.0;
 
@@ -977,7 +969,6 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
 
 // File @openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol@v4.2.0
 
-
 pragma solidity ^0.8.0;
 
 /**
@@ -1005,7 +996,6 @@ interface IERC721Enumerable is IERC721 {
 
 
 // File @openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol@v4.2.0
-
 
 pragma solidity ^0.8.0;
 
@@ -1169,7 +1159,6 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 
 // File @openzeppelin/contracts/access/Ownable.sol@v4.2.0
 
-
 pragma solidity ^0.8.0;
 
 /**
@@ -1240,7 +1229,6 @@ abstract contract Ownable is Context {
 
 
 // File @openzeppelin/contracts/utils/math/SafeMath.sol@v4.2.0
-
 
 pragma solidity ^0.8.0;
 
@@ -1470,7 +1458,6 @@ library SafeMath {
 
 // File contracts/common/meta-transactions/ContentMixin.sol
 
-
 pragma solidity ^0.8.0;
 
 abstract contract ContextMixin {
@@ -1499,7 +1486,6 @@ abstract contract ContextMixin {
 
 // File contracts/common/meta-transactions/Initializable.sol
 
-
 pragma solidity ^0.8.0;
 
 contract Initializable {
@@ -1514,7 +1500,6 @@ contract Initializable {
 
 
 // File contracts/common/meta-transactions/EIP712Base.sol
-
 
 pragma solidity ^0.8.0;
 
@@ -1592,7 +1577,6 @@ contract EIP712Base is Initializable {
 
 
 // File contracts/common/meta-transactions/NativeMetaTransaction.sol
-
 
 pragma solidity ^0.8.0;
 
@@ -1700,7 +1684,6 @@ contract NativeMetaTransaction is EIP712Base {
 
 // File contracts/ERC721Tradeable.sol
 
-
 pragma solidity ^0.8.0;
 
 
@@ -1735,12 +1718,12 @@ abstract contract ERC721Tradeable is ContextMixin, ERC721Enumerable, NativeMetaT
     /**
      * @dev Mints a token to an address with a tokenURI.
      * @param _to address of the future owner of the token
-     *//*
-    function mintTo(address _to) public onlyOwner {
-        uint256 newTokenId = _getNextTokenId();
-        _mint(_to, newTokenId);
-        _incrementTokenId();
-    }*/
+     */
+    // function mintTo(address _to) public onlyOwner {
+    //     uint256 newTokenId = _getNextTokenId();
+    //     _mint(_to, newTokenId);
+    //     _incrementTokenId();
+    // }
 
     /**
      * @dev calculates the next token ID based on value of _currentTokenId
@@ -1786,7 +1769,6 @@ abstract contract ERC721Tradeable is ContextMixin, ERC721Enumerable, NativeMetaT
 
 
 // File @openzeppelin/contracts/access/AccessControl.sol@v4.2.0
-
 
 pragma solidity ^0.8.0;
 
@@ -2038,7 +2020,6 @@ abstract contract AccessControl is Context, IAccessControl, ERC165 {
 
 // File contracts/common/AccessControlMixin.sol
 
-
 pragma solidity ^0.8.0;
 
 contract AccessControlMixin is AccessControl {
@@ -2058,7 +2039,6 @@ contract AccessControlMixin is AccessControl {
 
 
 // File contracts/ParentCreature4.sol
-
 
 pragma solidity ^0.8.0;
 

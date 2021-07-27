@@ -10,7 +10,7 @@ async function main() {
 
     'FlatChildCreature4'
   );
-  const childcreature4 = await childCreature4.deploy("DCreature4", "DOSC4",
+  const childcreature4 = await childCreature4.deploy(
     '0x3166fAF2D5c1669872e09065De614d3b98090E8f'
   );
 
