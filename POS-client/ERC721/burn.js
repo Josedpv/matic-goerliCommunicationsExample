@@ -6,7 +6,8 @@ const execute = async () => {
   try {
     const tx = await maticPOSClient.burnERC721(
       config.child.DERC721,
-      config.user.tokenId
+      config.user.tokenId,
+      { from: '0x6844b555aed63c1741F469Ae87dE219a87825bFe' }
     );
     console.log(tx.transactionHash); // eslint-disable-line
   } catch (e) {

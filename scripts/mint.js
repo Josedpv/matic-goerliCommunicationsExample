@@ -5,14 +5,14 @@ async function main() {
   /**
    * Contract factory
    */
-  const NFT = await hre.ethers.getContractFactory('FlatCreature3');
+  const NFT = await hre.ethers.getContractFactory('FlatChildCreature4');
   // const URI = 'something';
 
   /**
    * Owner of the nft and contract addresses
    */
-  const WALLET_ADDRESS = '0x83aE545Ebb0A20203968F8Ae9Ac2aF1A36638b71';
-  const CONTRACT_ADDRESS = '0x3D51c60a864857bEA6Ebefc8B6b126142FD4d436';
+  const WALLET_ADDRESS = '0x6844b555aed63c1741F469Ae87dE219a87825bFe';
+  const CONTRACT_ADDRESS = '0x763113d75077166052D006cC8f1a5fFBbBA43Ba5';
 
   /**
    * Returns a new instance of the Contract attached to a new address

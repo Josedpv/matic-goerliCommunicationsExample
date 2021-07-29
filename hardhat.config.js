@@ -18,7 +18,7 @@ module.exports = {
   /**
    * using matic network for deployment
    */
-  defaultNetwork: 'goerli',
+  defaultNetwork: 'matic',
   networks: {
     hardhat: {},
     matic: {
@@ -62,7 +62,7 @@ module.exports = {
    * Using hardhat-etherscan plugin for veryfying introduce key for polygon or eth nets
    */
   etherscan: {
-    apiKey: "7AEA74P48HF46VYHC76SMY1GC7PJG94N1C", //goerli
-    //"G971M386YPBJQDCBZR8ZZMADE48WV4889Z", //matic
+    // "7AEA74P48HF46VYHC76SMY1GC7PJG94N1C", //goerli
+    apiKey: "G971M386YPBJQDCBZR8ZZMADE48WV4889Z", //matic
   },
 };
