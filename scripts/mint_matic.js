@@ -12,7 +12,7 @@ async function main() {
    * Owner of the nft and contract addresses
    */
   const WALLET_ADDRESS = '0x6844b555aed63c1741F469Ae87dE219a87825bFe';
-  const CONTRACT_ADDRESS = '0x89e1115e530958dFB62A46ad299e210F791AF257';// '0x5973103c2C119115236dCB81BC56250E5E86fF59';
+  const CONTRACT_ADDRESS = '0x5973103c2C119115236dCB81BC56250E5E86fF59';//'0x89e1115e530958dFB62A46ad299e210F791AF257';//
 
   /**
    * Returns a new instance of the Contract attached to a new address

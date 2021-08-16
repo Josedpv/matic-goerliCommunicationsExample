@@ -5,7 +5,8 @@ require('dotenv').config();
 require('@nomiclabs/hardhat-waffle');
 require('@nomiclabs/hardhat-truffle5');
 require('@nomiclabs/hardhat-etherscan');
-
+require("@nomiclabs/hardhat-web3");
+require('web3-eth-contract');
 /**
  * Import private key of the account with funds
  */
@@ -18,7 +19,7 @@ module.exports = {
   /**
    * using matic network for deployment
    */
-  defaultNetwork: 'matic',
+  defaultNetwork: 'goerli',
   networks: {
     hardhat: {},
     matic: {
@@ -62,7 +63,7 @@ module.exports = {
    * Using hardhat-etherscan plugin for veryfying introduce key for polygon or eth nets
    */
   etherscan: {
-    //apiKey: "7AEA74P48HF46VYHC76SMY1GC7PJG94N1C", //goerli
-    apiKey: "G971M386YPBJQDCBZR8ZZMADE48WV4889Z", //matic
+    apiKey: "7AEA74P48HF46VYHC76SMY1GC7PJG94N1C", //goerli
+    //apiKey: "G971M386YPBJQDCBZR8ZZMADE48WV4889Z", //matic
   },
 };

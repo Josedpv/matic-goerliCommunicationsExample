@@ -5,7 +5,7 @@ async function main() {
   /**
    * Contract factory
    */
-  const NFT = await hre.ethers.getContractFactory('FlatChildCreature4');
+  const NFT = await hre.ethers.getContractFactory('FlatParentCreature4');
   // const URI = 'something';
 
   /**

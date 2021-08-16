@@ -8,7 +8,7 @@ async function main() {
   // We get the contract to deploy
   const childCreature4 = await hre.ethers.getContractFactory(
 
-    'FlatParentCreature4'
+    'FlatParentCreature5'
   );
   const childcreature4 = await childCreature4.deploy(
     '0x3166fAF2D5c1669872e09065De614d3b98090E8f'
