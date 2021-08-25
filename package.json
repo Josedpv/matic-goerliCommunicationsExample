@@ -5,6 +5,7 @@
   "author": "David Liendo",
   "license": "MIT",
   "dependencies": {
+    "@ethereumjs/tx": "^3.3.0",
     "hardhat": "^2.4.3",
     "web3-eth": "^1.5.2",
     "web3-eth-contract": "^1.5.2"
