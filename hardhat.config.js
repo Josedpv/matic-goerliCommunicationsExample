@@ -40,6 +40,15 @@ module.exports = {
       gas: 2100000,
       gasPrice: 8000000000,
     },
+    rinkeby: {
+      url: 'https://rinkeby.infura.io/v3/5647ab3aac34482082e3c32cce078e41',
+      accounts: [PRIVATE_KEY],
+      /**
+       * Configuring gas restrictions
+       */
+      gas: 2100000,
+      gasPrice: 8000000000,
+    },
   },
   solidity: {
     version: '0.8.4',
@@ -63,7 +72,8 @@ module.exports = {
    * Using hardhat-etherscan plugin for veryfying introduce key for polygon or eth nets
    */
   etherscan: {
-    apiKey: "7AEA74P48HF46VYHC76SMY1GC7PJG94N1C", //goerli
+    apiKey: "JI91I4GDRYV9MQ9G1PHF8RCM2BAEM7XTCU", // rinkeby
+    //apiKey: "7AEA74P48HF46VYHC76SMY1GC7PJG94N1C", //goerli
     //apiKey: "G971M386YPBJQDCBZR8ZZMADE48WV4889Z", //matic
   },
 };

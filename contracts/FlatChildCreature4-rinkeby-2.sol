@@ -1219,7 +1219,7 @@ abstract contract Ownable is Context {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+        require(owner() == _msgSender(), "Ownable: caller is not the owner 1");
         _;
     }
 
@@ -2077,6 +2077,7 @@ contract AccessControlMixin is AccessControl {
 }
 
 
+
 // File contracts/ERC721/ChildCreature4.sol
 
 
@@ -2084,12 +2085,11 @@ contract AccessControlMixin is AccessControl {
 pragma solidity ^0.8.0;
 
 
-
 /**
  * @title Creature
  * Creature - a contract for my non-fungible creatures.
  */
-contract FlatChildCreature4 is ERC721Tradeable,AccessControlMixin {
+contract FlatChildCreature2 is ERC721Tradeable,AccessControlMixin {
     using SafeMath for uint256;
     bytes32 public constant DEPOSITOR_ROLE = keccak256("DEPOSITOR_ROLE");
     uint256 private _currentTokenId = 0;
@@ -2250,6 +2250,69 @@ contract FlatChildCreature4 is ERC721Tradeable,AccessControlMixin {
         _incrementTokenId();
         
     }
-
+       /**
+     * @dev Mints a token to an address with a tokenURI.
+     * @param _to address of the future owner of the token
+     */
+    function mintTo_a(address _to) public onlyOwner {
+      FlatChildCreature3a Creature3a = FlatChildCreature3a(0x830fe5F37dCebB18AC2728654908C4249e9b4a05);
+        Creature3a.mintTo(_to);
+    }
+   /**
+     * @dev Mints a token to an address with a tokenURI.
+     * @param _to address of the future owner of the token
+     */
+    function mintTo_b(address _to) public onlyOwner {
+      FlatChildCreature3b Creature3b = FlatChildCreature3b(0x126b1Cc7266fAda43e092D33A796D806f4eb511e);
+        Creature3b.mintTo(_to);
+    }
 
 }
+
+
+contract FlatChildCreature3a  {
+    address private _owner = 0x6844b555aed63c1741F469Ae87dE219a87825bFe;
+        function _msgSender() internal view virtual returns (address) {
+        return _owner;
+    }
+      /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(owner() == _msgSender(), "2Ownable: caller is not the owner 2");
+        _;
+    }
+    function mintTo(address _to) public onlyOwner {}
+
+}
+contract FlatChildCreature3b  {
+    
+    address private _owner = 0x6844b555aed63c1741F469Ae87dE219a87825bFe;
+        function _msgSender() internal view virtual returns (address) {
+        return _owner;
+    }
+      /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(owner() == _msgSender(), "3Ownable: caller is not the owner 3");
+        _;
+    }
+    function mintTo(address _to) public onlyOwner {}
+
+}
+

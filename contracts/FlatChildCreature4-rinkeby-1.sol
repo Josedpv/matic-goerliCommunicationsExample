@@ -2089,7 +2089,7 @@ pragma solidity ^0.8.0;
  * @title Creature
  * Creature - a contract for my non-fungible creatures.
  */
-contract FlatChildCreature4 is ERC721Tradeable,AccessControlMixin {
+contract FlatChildCreature1 is ERC721Tradeable,AccessControlMixin {
     using SafeMath for uint256;
     bytes32 public constant DEPOSITOR_ROLE = keccak256("DEPOSITOR_ROLE");
     uint256 private _currentTokenId = 0;
@@ -2250,6 +2250,7 @@ contract FlatChildCreature4 is ERC721Tradeable,AccessControlMixin {
         _incrementTokenId();
         
     }
+    
 
 
 }
