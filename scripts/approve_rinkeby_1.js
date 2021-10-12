@@ -12,8 +12,8 @@ async function main() {
    * Owner of the nft and contract addresses
    */
   const WALLET_ADDRESS = '0x6844b555aed63c1741F469Ae87dE219a87825bFe';
-  const CONTRACT_ADDRESS = '0x0e474499ee6E2eb9968DCD4DAa36a1C2844E181C';
-  const CONTRACT_DESTINY = '0x7086F57165C6D1Bc7b1d85aec7872Cd22F0cA909';
+  const CONTRACT_ADDRESS = '0x0e474499ee6E2eb9968DCD4DAa36a1C2844E181C';//FlatChildCreature1
+  const CONTRACT_DESTINY = '0x7086F57165C6D1Bc7b1d85aec7872Cd22F0cA909';//FlatChildCreature2
   /**
    * Returns a new instance of the Contract attached to a new address
    */

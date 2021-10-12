@@ -5,26 +5,26 @@ async function main() {
   /**
    * Contract factory
    */
-  const NFT = await hre.ethers.getContractFactory('FlatChildCreature2');
+  const NFT = await hre.ethers.getContractFactory('FlatChildCreature1');
   // const URI = 'something';
 
   /**
    * Owner of the nft and contract addresses
    */
   const WALLET_ADDRESS = '0x6844b555aed63c1741F469Ae87dE219a87825bFe';
-  const CONTRACT_ADDRESS = '0x830fe5F37dCebB18AC2728654908C4249e9b4a05';//'0x89e1115e530958dFB62A46ad299e210F791AF257';//
-  const owner = '0xE401502F4c559018D0e8e31F46D2b80F3e485cA2';
+  const CONTRACT_ADDRESS = '0x0e474499ee6E2eb9968DCD4DAa36a1C2844E181C';//FlatChildCreature1
+
   /**
    * Returns a new instance of the Contract attached to a new address
    */
-  const contract = NFT.attach(owner);
+  const contract = NFT.attach(CONTRACT_ADDRESS);
 
   /**
    * Minting a new NFT
    */
-  //transferOwnership
+
   const txResult = await contract.mintTo_a(WALLET_ADDRESS);
-  //const txResult = await contract.transferOwnership(owner);
+
   console.log('Tx Result:', txResult);
 }
 main()
