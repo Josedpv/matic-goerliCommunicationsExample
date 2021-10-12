@@ -23,7 +23,7 @@ async function main() {
    * Minting a new NFT
    */
 
-  const txResult = await contract.mintTo_a(WALLET_ADDRESS);
+  const txResult = await contract.mintTo(WALLET_ADDRESS);
 
   console.log('Tx Result:', txResult);
 }

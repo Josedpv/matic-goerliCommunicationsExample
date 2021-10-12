@@ -13,7 +13,7 @@ async function main() {
    */
   const WALLET_ADDRESS = '0x6844b555aed63c1741F469Ae87dE219a87825bFe';
   const CONTRACT_ADDRESS = '0x0e474499ee6E2eb9968DCD4DAa36a1C2844E181C';//FlatChildCreature1
-  const CONTRACT_DESTINY = '0x7086F57165C6D1Bc7b1d85aec7872Cd22F0cA909';//FlatChildCreature2
+  const CONTRACT_DESTINY = '0xE401502F4c559018D0e8e31F46D2b80F3e485cA2';//FlatChildCreature2
   /**
    * Returns a new instance of the Contract attached to a new address
    */
@@ -22,7 +22,7 @@ async function main() {
   /**
    * Minting a new NFT
    */
-  const txResult = await contract.transferFrom(WALLET_ADDRESS, CONTRACT_DESTINY, 1);
+  const txResult = await contract.transferFrom(WALLET_ADDRESS, CONTRACT_DESTINY, 3);
   console.log('Tx Result:', txResult);
 }
 main()
